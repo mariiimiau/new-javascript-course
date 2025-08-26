@@ -270,3 +270,188 @@ console.log("Does Mark have a higher BMI than John?", markHigherBMI);
 console.log("Mark's BMI:", BMIMark1.toFixed(2));
 console.log("John's BMI:", BMIJohn1.toFixed(2));
 
+// JavaScript Fundamentals - Hour 3
+// Insert your complete code here
+
+// Strings and Template Literals
+const firstName2 = "Marygail";
+const job2 = "artist";
+const birthYear2 = 2003;
+const year2 = 2025;
+
+const marygail =
+  "I'm " + firstName2 + ", a " + (year2 - birthYear2) + " year old " + job2 + "!";
+console.log(marygail);
+
+// The modern way - Template Literals
+const marygailNew = `I'm ${firstName2}, a ${year2 - birthYear2} year old ${job2}!`;
+console.log(marygailNew);
+
+// Any expression works inside ${}
+console.log(`I'm ${2025 - 2003} years old.`);
+console.log(`Math works: ${2 + 3} equals five`);
+console.log(`Comparisons too: ${5 > 3} `); 
+
+console.log(`Just a regular string...`);
+
+// Old way - painful
+console.log(
+  "String with \n\
+multiple \n\
+lines"
+);
+
+// New way - natural
+console.log(`String
+multiple
+lines`);
+
+// Exercise 1: Personal Intrdoduction
+const myName = "Angeli";
+const myAge2 = 21;
+const myJob2 = "artist";
+const currentYear2 = 2025;
+
+const introduction = `Hi, I'm ${myName}, a ${myAge2} year old ${myJob2}!`;
+console.log(introduction);
+
+// Exercise 2: Math in Templates
+const currentYear3 = 2025;
+const myAge3 = 2023;
+const birthYear3 = currentYear3 - myAge;
+
+const templateLiteral = `Born in ${birthYear}, 10*5 = ${10 * 5}, Adult: ${myAge >= 18}`;
+console.log(templateLiteral);
+
+//Taking Decisions: if / else Statements 
+const LaraJeanAge = 15;
+
+if (LaraJeanAge >= 18) {
+    console.log("Lara Jean can start driving license 🚗");
+} else {
+    const yearsLeft = 18 - LaraJeanAge;
+    console.log(`LaraJean is too young. Wait another ${yearsLeft} years :)`);
+}
+
+// Variable Assignment with Decisions
+birthYear4 = 2015;
+
+let century;
+if (birthYear <= 2000) {
+  century = 20;
+} else {
+  century = 21;
+}
+console.log(century); //21
+
+// Real-World Decision-Making
+score = 90;
+
+if (score >= 60) {
+  console.log(`You passed with ${score} points! 🎉`);
+  console.log("Congratulations!");
+} else {
+  const pointsNeeded = 60 - score;
+  console.log(`You failed. Need ${pointsNeeded} more points.`);
+}
+
+// Exercise 1: Grade Calculator
+console.log("=== EXERCISE 1: GRADE CALCULATOR ===");
+
+const testScore = 75;
+
+if (testScore >= 90) {
+    console.log("Excellent! Grade A");
+} else if (testScore >= 80) {
+    console.log("Good job! Grade B");
+} else if (testScore >= 70) {
+    console.log("Not bad! Grade C");
+} else if (testScore >= 60) {
+    console.log("You passed! Grade D");
+} else {
+    console.log("You failed! Study harder");
+}
+
+// Exercise 2: Age Verification
+// Create an age verification system
+console.log("=== EXERCISE 2: AGE VERIFICATION ===");
+
+const userAge = 17;
+
+if (userAge >= 18) {
+    console.log("Welcome! You can access all content");
+} else if (userAge >= 13) {
+    console.log("Welcome! Restricted content only");
+} else {
+    console.log("Sorry, you're too young");
+}
+
+// Truthy and Falsy Values
+// 5 Falsy values: 0, '', undefined, null, NaN
+console.log(Boolean(0)); // false
+console.log(Boolean(undefined)); // false
+console.log(Boolean("Danielle")); // true
+console.log(Boolean({})); // true (empty object)
+console.log(Boolean("")); // false (empty string)
+
+// Practical Application
+const money = 20;
+if (money) {
+  console.log("Don't spend it all ;)");
+} else {
+  console.log("You should get a job!");
+}
+
+// Common Gotcha
+let height = 55; // This is a valid height!
+if (height) {
+  console.log("YAY! Height is defined");
+} else {
+  console.log("Height is UNDEFINED"); // This runs even though height IS defined!
+}
+
+// Better approach for checking if defined:
+if (height !== undefined) {
+  console.log("Height is defined");
+}
+
+// Test these values with Boolean(): and if statements:
+console.log("=== TRUTHY/FALSY VALUES TEST ===");
+
+const values = [0, 1, "", "hello", undefined, null, NaN, {}, []];
+
+for (let i = 0; i < values.length; i++) {
+    const value = values[i];
+    console.log(`\nValue:`, value);
+    console.log("Boolean:", Boolean(value));
+    
+    if (value) {
+        console.log("Truthy!");
+    } else {
+        console.log("Falsy!");
+    }
+}
+
+console.log("=== CODING CHALLENGE #2: BMI COMPARISON ===");
+
+// Reuse your BMI calculation from Challenge #1
+
+const massMark2 = 78;
+const heightMark2 = 1.69; 
+const massJohn2 = 92;
+const heightJohn2 = 1.95;
+
+const BMIMark = massMark / heightMark ** 2;
+const BMIJohn = massJohn / (heightJohn * heightJohn);
+
+console.log("Mark's BMI:", BMIMark.toFixed(1));
+console.log("John's BMI:", BMIJohn.toFixed(1));
+
+// Your if/else statement here:
+if (BMIMark > BMIJohn) {
+    console.log(`Mark's BMI (${BMIMark.toFixed(1)}) is higher than John's (${BMIJohn.toFixed(1)})!`);
+} else if (BMIJohn > BMIMark) {
+    console.log(`John's BMI (${BMIJohn.toFixed(1)}) is higher than Mark's (${BMIMark.toFixed(1)})!`);
+} else {
+    console.log(`Mark and John have the same BMI (${BMIMark.toFixed(1)})!`);
+}
