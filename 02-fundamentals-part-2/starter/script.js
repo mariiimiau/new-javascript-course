@@ -496,3 +496,307 @@ console.log(`Highest: ${highestGrade}`); // 95
 console.log(`Lowest: ${lowestGrade}`); // 67
 console.log(`Passing students: ${passingStudents} out of ${studentGrades.length}`); // 6 out of 8
 
+// JavaScript Fundamentals Part 2 - Hour 3
+// The Array Limitation Problem
+
+// The Array Problem
+const bellyArray = [
+  "Belly",
+  "Conklin",
+  2037 - 2009,
+  "volleyball captain",
+  ["Michael", "Peter", "Steven"],
+];
+console.log(bellyArray[0]);
+console.log(bellyArray[1]);
+console.log(bellyArray[2]);
+
+// Object Creation with Object Literal Syntax
+console.log("=== OBJECTS ===");
+// Object literal syntax - curly braces create objects
+const belly = {
+  firstName: "Belly", // property: string value
+  lastName: "Conklin", // property: string value
+  age: 2037 - 2009, // property: calculated value
+  job: "volleyball captain", // property: string value
+  friends: ["Michael", "Peter", "Steven"], // property: array value
+};
+console.log(belly);
+    
+// Array approach
+// (bellyArray already declared above, so we skip redeclaring it here)
+bellyArray[2] = 16; // update age if needed
+
+// Object approach
+const bellyObject = {
+  firstName: "Belly",
+  lastName: "Conklin",
+  age: 16,
+  job: "volleyball captain",
+  friends: ["Michael", "Peter", "Steven"],
+};
+
+// Property Access Methods
+// Dot notation - clean and readable
+console.log(belly.firstName); // 'Jonas'
+console.log(belly.lastName); // 'Schmedtmann'
+console.log(belly.age); // 46
+console.log(belly.job); // 'teacher'
+console.log(belly.friends); // ['Michael', 'Peter', 'Steven']
+
+// Bracket notation - uses strings
+console.log(belly["firstName"]); // Same result as dot notation
+console.log(belly["lastName"]);
+console.log(belly["age"]);
+
+// Bracket notation with expressions - compute property names!
+const nameKey = "Name";
+console.log(belly["first" + nameKey]); // 'Jonas'
+console.log(belly["last" + nameKey]); // 'Schmedtmann'
+
+
+// Modifying Existing Properties
+belly.job = "volleyball capatin";
+belly["age"] = 16;
+console.log(belly);
+
+// Adding New Properties
+belly.location = "Cousin's beach";
+belly["twitter"] = "@bellyconklin09";
+belly.hasDriversLicense = false;
+console.log(belly);
+
+// Exercise 1: Personal Object
+console.log("=== EXERCISE 1: PERSONAL OBJECT ===");
+
+// 1. Create a 'book' object with title, author, pages, and isRead properties
+const book = {
+  title: "Hunger Games (French Edition)",
+  author: "Suzanne Collins",
+  pages: 398,
+  isRead: true
+};
+
+// 2. Create a 'playlist' object with name, creator, songs array, and genre
+const playlist = {
+  name: "What Cousins feels like",
+  creator: "Isabel Conklin",
+  songs: ["Cruel Summer", "Ribs", "Team"],
+  genre: "Pop"
+};
+
+// 3. Access and log different properties using both dot and bracket notation
+console.log(book.title); // Dot notation
+console.log(book["author"]); // Bracket notation
+console.log(playlist.name); // Dot notation
+console.log(playlist["creator"]); // Bracket notation
+
+// 4. Add a new property to each object
+book.publisher = "French and European Publications Inc";
+playlist.duration = "45 minutes";
+
+// 5. Modify an existing property in each object
+book.isRead = false;
+playlist.genre = "Pop";
+
+console.log("Updated book:", book);
+console.log("Updated playlist:", playlist);
+
+// Objects vs Arrays: When to Use What
+// Ordered, indexed data - think lists
+const listOfYears = [1991, 1984, 2008, 2020];
+const shoppingList = ["apples", "bananas", "milk", "bread"];
+const testScores = [85, 92, 78, 96];
+
+// Named, descriptive data - think entities
+const person = {
+  name: "Jonas",
+  age: 46,
+  occupation: "teacher",
+};
+
+const car = {
+  brand: "Toyota",
+  model: "Camry",
+  year: 2020,
+  color: "blue",
+};
+
+// Objects can contain arrays, arrays can contain objects
+const student = {
+  name: "Sarah",
+  grades: [85, 92, 78], // Array inside object
+  address: {
+    // Object inside object
+    street: "123 Main St",
+    city: "New York",
+  },
+};
+
+console.log(student.grades[0]); // 85
+console.log(student.address.city); // 'New York'
+
+// Object Methods and the 'this' Keyword
+const jonas = {
+  firstName: "Jonas",
+  lastName: "Schmedtmann",
+  birthYear: 1991,
+  job: "teacher",
+  friends: ["Michael", "Peter", "Steven"],
+  hasDriversLicense: true,
+
+  // Method - function inside object
+  calcAge: function (birthYear) {
+    return 2037 - birthYear;
+  },
+};
+
+// Call methods using dot notation
+console.log(jonas.calcAge(1991)); // 46
+console.log(jonas.calcAge(jonas.birthYear));
+
+// The 'this' Keyword - Accessing Own Properties
+const jonasImproved = {
+  firstName: "Jonas",
+  lastName: "Schmedtmann",
+  birthYear: 1991,
+  job: "teacher",
+  friends: ["Michael", "Peter", "Steven"],
+  hasDriversLicense: true,
+
+  calcAge: function () {
+    console.log(this); // Shows the jonas object
+    return 2037 - this.birthYear; // Access own birthYear!
+  },
+};
+
+console.log(jonasImproved.calcAge()); // 46
+
+// Advanced: Storing Calculated Values
+const jonasAdvanced = {
+  firstName: "Jonas",
+  lastName: "Schmedtmann",
+  birthYear: 1991,
+  job: "teacher",
+  friends: ["Michael", "Peter", "Steven"],
+  hasDriversLicense: true,
+
+  calcAge: function () {
+    this.age = 2037 - this.birthYear; // Store result as new property
+    return this.age;
+  },
+
+  getSummary: function () {
+    return `${this.firstName} is a ${this.calcAge()}-year old ${
+      this.job
+    }, and he has ${this.hasDriversLicense ? "a" : "no"} driver's license.`;
+  },
+};
+
+console.log(jonasAdvanced.calcAge());
+console.log(jonasAdvanced.age); 
+console.log(jonasAdvanced.getSummary());
+
+// Exercise 2: Calculator Object
+console.log("=== EXERCISE 2: CALCULATOR OBJECT ===");
+
+const calculator = {
+  num1: 10,
+  num2: 5,
+  operator: "+",
+
+  add: function () {
+    return this.num1 + this.num2;
+  },
+
+  subtract: function () {
+    return this.num1 - this.num2;
+  },
+
+  multiply: function () {
+    return this.num1 * this.num2;
+  },
+
+  divide: function () {
+    return this.num1 / this.num2;
+  },
+
+  calculate: function () {
+    switch (this.operator) {
+      case "+":
+        return this.add();
+      case "-":
+        return this.subtract();
+      case "*":
+        return this.multiply();
+      case "/":
+        return this.divide();
+      default:
+        return "Invalid operator";
+    }
+  },
+
+  getResult: function () {
+    const result = this.calculate();
+    return `${this.num1} ${this.operator} ${this.num2} = ${result}`;
+  }
+};
+
+// Test your calculator
+console.log(calculator.calculate());
+console.log(calculator.getResult());
+
+// Coding Challenge #3: BMI Comparison
+console.log("=== CODING CHALLENGE #3: USER PROFILE SYSTEM ===");
+
+const user = {
+  firstName: "Conrad",
+  lastName: "Fisher",
+  birthYear: 2004,
+  location: "Cousin's beach",
+  interests: ["gardening", "guitar", "cooking"],
+  friends: [
+    { name: "Isabel", status: "active" },
+    { name: "Jeremiah", status: "inactive" },
+    { name: "Steven", status: "active" },
+  ],
+  isActive: true,
+
+  calcAge: function () {
+    const currentYear = new Date().getFullYear();
+    this.age = currentYear - this.birthYear;
+    return this.age;
+  },
+
+  addFriend: function (name, status = "active") {
+    this.friends.push({ name, status });
+    return this.friends.length;
+  },
+
+  getActiveFriends: function () {
+    return this.friends.filter(friend => friend.status === "active").length;
+  },
+
+  toggleStatus: function () {
+    this.isActive = !this.isActive;
+    return this.isActive;
+  },
+
+  getSummary: function () {
+    const age = this.calcAge();
+    const activeFriends = this.getActiveFriends();
+    const totalFriends = this.friends.length;
+    
+    return `${this.firstName} ${this.lastName} is a ${age}-year old from ${this.location}.
+Status: ${this.isActive ? "Active" : "Inactive"}
+Friends: ${activeFriends} active out of ${totalFriends} total
+Interests: ${this.interests.join(", ")}`;
+  }
+};
+
+// Test your user profile system
+console.log(user.getSummary());
+user.addFriend("Isabel", "active");
+user.toggleStatus();
+console.log(`\nAfter updates:`);
+console.log(user.getSummary());
