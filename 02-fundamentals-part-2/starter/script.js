@@ -800,3 +800,231 @@ user.addFriend("Isabel", "active");
 user.toggleStatus();
 console.log(`\nAfter updates:`);
 console.log(user.getSummary());
+
+// JavaScript Fundamentals Part 2 - Hour 4
+// Selecting DOM Elements
+
+// Exercise 1: Element Selection Practice
+console.log("=== EXERCISE 1: ELEMENT SELECTION PRACTICE ===");
+
+// 1. Select the element with class 'guess' and log it
+const guessInput = document.querySelector(".guess");
+console.log(guessInput);
+
+// 2. Select the element with ID 'btn' using both querySelector and getElementById
+const buttonQuery = document.querySelector("#btn");
+const buttonById = document.getElementById("btn");
+console.log("Are they the same element?", buttonQuery === buttonById);
+
+// 3. Select all span elements and log the collection
+const allSpans = document.querySelectorAll("span");
+console.log("All spans:", allSpans);
+
+// 4. Select the first span element and log its textContent
+const firstSpan = document.querySelector("span");
+if (firstSpan) {
+    console.log("First span text:", firstSpan.textContent);
+}
+
+// 5. Experiment with different CSS selectors
+const firstDiv = document.querySelector("div");
+console.log("First div:", firstDiv);
+
+// Exercise 2: Content and Style Practice
+console.log("=== EXERCISE 2: CONTENT AND STYLE PRACTICE ===");
+
+// Select elements
+const heading = document.querySelector("h1");
+const button = document.querySelector("#btn");
+const input = document.querySelector(".guess");
+const message = document.querySelector(".message");
+const scoreValue = document.querySelector(".score-value");
+
+// 1. Change the h1 text to your name
+if (heading) {
+    heading.textContent = "Interactive Score Tracker by Angeli";
+}
+
+// 2. Make the button's background color blue and text white
+if (button) {
+    button.style.backgroundColor = "blue";
+    button.style.color = "white";
+    button.style.padding = "10px 20px";
+    button.style.border = "none";
+    button.style.borderRadius = "5px";
+}
+
+// 3. Set a placeholder text in the input field
+if (input) {
+    input.placeholder = "Type something cool...";
+}
+
+// 4. Change the message text to include HTML bold formatting
+if (message) {
+    message.innerHTML = "This is <strong>bold</strong> text from JavaScript!";
+}
+
+// 5. Make the score display larger and a different color
+if (scoreValue) {
+    scoreValue.style.fontSize = "2rem";
+    scoreValue.style.color = "green";
+    scoreValue.style.fontWeight = "bold";
+}
+
+// Exercise 3: Event Listener Practice
+console.log("=== EXERCISE 3: EVENT LISTENER PRACTICE ===");
+
+// 1. Add a click event to the h1 that changes its color
+if (heading) {
+    heading.addEventListener("click", function () {
+        heading.style.color = "purple";
+    });
+}
+
+// 2. Create an input event that displays character count as user types
+if (input) {
+    input.addEventListener("input", function () {
+        const count = input.value.length;
+        if (message) {
+            message.textContent = `Character count: ${count}`;
+        }
+    });
+}
+
+// 3. Add a keydown event that responds to the spacebar
+document.addEventListener("keydown", function (event) {
+    if (event.key === " ") {
+        if (message) {
+            message.textContent = "Spacebar pressed!";
+        }
+    }
+});
+
+// 4. Make the button change its text when hovered (mouseover event)
+if (button) {
+    button.addEventListener("mouseover", function () {
+        button.textContent = "Hovering!";
+    });
+
+    button.addEventListener("mouseout", function () {
+        button.textContent = "Click Me!";
+    });
+}
+
+// 5. Create a double-click event that does something special
+if (heading) {
+    heading.addEventListener("dblclick", function () {
+        heading.textContent = "Double-clicked!";
+        heading.style.backgroundColor = "lightblue";
+    });
+}
+
+// Final Project: Interactive Score Tracker
+console.log("=== FINAL PROJECT: INTERACTIVE SCORE TRACKER ===");
+
+// Game state - moved to top of this section
+const gameState = {
+    scores: [0, 0],
+    winningScore: 5,
+    gameOver: false
+};
+
+// DOM elements
+const scoreDisplays = [
+    document.querySelector("#score-1"),
+    document.querySelector("#score-2")
+];
+const addButtons = document.querySelectorAll(".btn-add");
+const resetButton = document.querySelector("#btn-reset");
+const winningScoreInput = document.querySelector("#winning-score");
+const statusMessage = document.querySelector(".status");
+const winnerMessage = document.querySelector(".winner");
+const winnerName = document.querySelector(".winner-name");
+const targetScore = document.querySelector(".target");
+const players = document.querySelectorAll(".player");
+
+// Update score display
+function updateScoreDisplay() {
+    scoreDisplays.forEach((display, index) => {
+        if (display) {
+            display.textContent = gameState.scores[index];
+        }
+    });
+}
+
+function checkWinner1() {
+    for (let i = 0; i < gameState.scores.length; i++) {
+        if (gameState.scores[i] >= gameState.winningScore) {
+            gameState.gameOver = true;
+            if (winnerName) winnerName.textContent = `Player ${i + 1}`;
+            if (winnerMessage) winnerMessage.classList.remove("hidden");
+            players.forEach((player, index) => {
+                if (index === i) {
+                    player.classList.add("winner");
+                } else {
+                    player.classList.add("loser");
+                }
+            });
+            return true;
+        }
+    }
+    return false;
+}
+
+// Add points to player
+function addPoint(playerIndex) {
+    if (gameState.gameOver) return;
+    
+    gameState.scores[playerIndex]++;
+    updateScoreDisplay();
+    
+    if (checkWinner1()) {
+        addButtons.forEach(btn => {
+            if (btn) btn.disabled = true;
+        });
+    }
+}
+
+// Reset game
+function resetGame() {
+    gameState.scores = [0, 0];
+    gameState.winningScore = parseInt(winningScoreInput.value) || 5;
+    gameState.gameOver = false;
+    
+    updateScoreDisplay();
+    if (targetScore) targetScore.textContent = gameState.winningScore;
+    if (winnerMessage) winnerMessage.classList.add("hidden");
+    
+    players.forEach(player => {
+        player.classList.remove("winner", "loser");
+    });
+    
+    addButtons.forEach(btn => {
+        if (btn) btn.disabled = false;
+    });
+}
+
+// Event listeners
+addButtons.forEach((button, index) => {
+    if (button) {
+        button.addEventListener("click", () => addPoint(index));
+    }
+});
+
+if (resetButton) {
+    resetButton.addEventListener("click", resetGame);
+}
+
+if (winningScoreInput) {
+    winningScoreInput.addEventListener("change", resetGame);
+}
+
+// Keyboard shortcuts
+document.addEventListener("keydown", function (event) {
+    if (event.key === "1") addPoint(0);
+    if (event.key === "2") addPoint(1);
+    if (event.key === "r") resetGame();
+});
+
+// Initialize game
+resetGame();

@@ -1,0 +1,77 @@
+body {
+  font-family: 'Courier New', Courier, monospace, 'Times New Roman', Times, serif;
+  max-width: 600px;
+  margin: 50px auto;
+  text-align: center;
+  background: linear-gradient(135deg, #ffc2d6 0%, #b86082 100%);
+  color: white;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.players {
+  display: flex;
+  justify-content: space-around;
+  margin: 30px 0;
+}
+
+.player {
+  background: rgba(202, 96, 136, 0.37);
+  padding: 30px;
+  border-radius: 15px;
+  margin: 10px;
+  flex: 1;
+}
+
+.score {
+  font-size: 4rem;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+button {
+  background: #b86082;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 10px;
+}
+
+button:hover {
+  background: #ffc5e0;
+  transform: translateY(-2px);
+}
+
+.controls {
+  margin: 30px 0;
+}
+
+input {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  margin: 0 10px;
+  text-align: center;
+  width: 60px;
+}
+
+.hidden {
+  display: none;
+}
+
+.player.winner {
+  background: linear-gradient(135deg, #b86082, #ffc5e0);
+  transform: scale(1.05);
+}
+
+.player.loser {
+  opacity: 0.5;
+}
+
+.winner {
+  font-size: 1.5rem;
+  margin: 20px 0;
+}
