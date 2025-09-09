@@ -458,3 +458,129 @@ console.log(
   "All bugs identified, isolated, investigated, fixed, and prevented"
 );
 
+// Developer Skills Hour 4 - Advanced Problem-Solving & Real-World Challenges
+"use strict";
+
+console.log("=== HOUR 4: ADVANCED PROBLEM-SOLVING MASTERY ===");
+
+console.log("Ready to tackle complex problems using systematic approaches");
+console.log("Challenge: Build solutions that work under pressure");
+
+// MAIN CHALLENGE: Weather Forecast String Builder
+const data1 = [17, 21, 23];
+const data2 = [12, 5, -5, 0, 4];
+
+function printForecast(arr) {
+  // Start with empty string accumulator - same pattern as sum calculations
+  let str = "";
+
+  // Loop through array to build the formatted string
+  for (let i = 0; i < arr.length; i++) {
+    // Build each piece using template literals for clean formatting
+    str += `${arr[i]}°C in ${i + 1} days ... `;
+  }
+
+  // Add starting dots and log the final result
+  console.log("..." + str);
+}
+
+// Test with provided data
+printForecast(data1);
+printForecast(data2);
+
+console.log("Weather forecast formatter working correctly!");
+
+// ALTERNATIVE IMPLEMENTATIONS
+function printForecastMap(arr) {
+  const formatted = arr.map((temp, index) => `${temp}°C in ${index + 1} days`);
+  console.log("..." + formatted.join(" ... ") + " ...");
+}
+
+function printForecastReduce(arr) {
+  const result = arr.reduce(
+    (acc, temp, index) => acc + `${temp}°C in ${index + 1} days ... `,
+    "..."
+  );
+  console.log(result);
+}
+
+console.log("Testing alternative implementations:");
+printForecastMap(data1);
+printForecastReduce(data1);
+
+// TIME-PRESSURED CHALLENGE: Work Hours Analyzer
+// TIME-PRESSURED CHALLENGE: Work Hours Analyzer
+console.log("=== WORK HOURS ANALYZER (10-MINUTE CHALLENGE) ===");
+
+function analyzeWorkWeek(dailyHours) {
+  // 1. Calculate total hours worked
+  const totalHours = dailyHours.reduce((sum, hours) => sum + hours, 0);
+  
+  // 2. Find average daily hours
+  const averageHours = Math.round((totalHours / dailyHours.length) * 10) / 10;
+  
+  // 3. Identify the day with most hours
+  const maxHours = Math.max(...dailyHours);
+  const maxDayIndex = dailyHours.indexOf(maxHours);
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  const maxDay = days[maxDayIndex];
+  
+  // 4. Count days worked (non-zero hours)
+  const daysWorked = dailyHours.filter(hours => hours > 0).length;
+  
+  // 5. Check if it was a full-time week (35+ hours)
+  const isFullTime = totalHours >= 35;
+  
+  return {
+    totalHours,
+    averageHours,
+    maxDay,
+    daysWorked,
+    isFullTime
+  };
+}
+
+// Test the solution
+const weeklyHours = [7.5, 8, 6.5, 0, 8.5, 4, 0];
+const analysis = analyzeWorkWeek(weeklyHours);
+console.log("Work week analysis:", analysis);
+
+console.log("Challenge completed under time pressure!");
+
+// SYSTEMATIC DEBUGGING AND ENHANCEMENT
+// Completely fixed and enhanced version
+function enhancedForecastFunction(temperatures, options = {}) {
+  // Step 5 - PREVENT: Add comprehensive input validation
+  if (!Array.isArray(temperatures) || temperatures.length === 0) {
+    console.error("Invalid input: temperatures must be a non-empty array");
+    return "";
+  }
+
+  // Step 4 - FIX: Use modern JavaScript with proper declarations
+  const { unit = "°C", separator = "...", includeIndex = true } = options;
+
+  // Step 4 - FIX: Correct loop bounds and string building
+  let result = "";
+
+  for (let i = 0; i < temperatures.length; i++) {
+    const dayNumber = includeIndex ? i + 1 : i;
+    result += `${temperatures[i]}${unit} in ${dayNumber} days${separator}`;
+  }
+
+  // Step 5 - PREVENT: Return clean result without trailing separator
+  return separator + result.slice(0, -separator.length);
+}
+
+// Test the enhanced function with multiple configurations
+console.log("Enhanced function (default):", enhancedForecastFunction(testData));
+console.log(
+  "Enhanced function (custom):",
+  enhancedForecastFunction(testData, {
+    unit: "°F",
+    separator: " | ",
+    includeIndex: true,
+  })
+);
+
+console.log("🎯 Complete developer skills successfully applied!");
+console.log("Legacy code debugged, fixed, and enhanced systematically");
