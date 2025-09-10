@@ -51,6 +51,18 @@ document.querySelector('.check').addEventListener('click', function () {
   const guess = Number(document.querySelector('.guess').value);
   console.log('Player guessed:', guess);
 
+  // 1) Missing input validation
+  if (!guess) {
+    document.querySelector('.message').textContent = '⛔ No number!';
+    return; // stop here
+  }
+
+  // 2) Out of range validation
+  if (guess < 1 || guess > 20) {
+    document.querySelector('.message').textContent = '🚫 Number must be between 1 and 20!';
+    return; // stop here
+  }
+
   // Basic game logic - check if guess is correct
   if (guess === secretNumber) {
     console.log('Correct guess!');
@@ -64,6 +76,10 @@ document.querySelector('.check').addEventListener('click', function () {
       highscore = score;
       document.querySelector('.highscore').textContent = highscore;
     }
+    
+    // Final polish: Clear input on win
+    document.querySelector('.guess').value = '';
+    document.querySelector('.message').textContent = '🎉 Game Over! You won!';
   } else if (guess > secretNumber) {
     console.log('Too high!');
     document.querySelector('.message').textContent = '📈 Too high!';
@@ -78,9 +94,11 @@ document.querySelector('.check').addEventListener('click', function () {
 
   // Check if game over
   if (score <= 0) {
-    document.querySelector('.message').textContent = '💥 You lost the game!';
+    document.querySelector('.message').textContent = '💀 Game Over! You lost!';
     document.querySelector('.check').disabled = true;
     document.querySelector('body').style.backgroundColor = '#921a1aff';
+    // Final polish: Clear input on lose
+    document.querySelector('.guess').value = '';
   }
 });
 
@@ -120,6 +138,8 @@ console.log('✅ DOM element selection working');
 console.log('✅ Game state variables initialized');
 console.log('✅ Event listeners responding');
 console.log('✅ Basic game logic implemented');
+console.log('✅ Input validation added');
+console.log('✅ Final polish added');
 console.log('Ready for advanced features in Hour 2!');
 
 // Test your game one more time
@@ -130,7 +150,10 @@ console.log('🎮 Enhanced Game Complete!');
 console.log('✅ Score tracking working');
 console.log('✅ Win/lose conditions implemented');
 console.log('✅ Game restart functionality working');
-console.log('✅ Complete game experience ready');
+console.log('✅ Input validation implemented');
+console.log('✅ Clear end-state messages');
+console.log('✅ Clean slate on restart');
+console.log('✅ Professional finishing touches');
 console.log('Ready for visual polish in Hour 3!');
 
 console.log('Test: Try to win, try to lose, then restart!');
