@@ -11,6 +11,7 @@ const current0El = document.getElementById('current--0');
 const current1El = document.getElementById('current--1');
 const diceEl = document.querySelector('.dice');
 const btnRoll = document.querySelector('.btn--roll');
+const btnHold = document.querySelector('.btn--hold');
 
 const init = function () {
   scores = [0, 0];
@@ -23,8 +24,19 @@ const init = function () {
   current0El.textContent = 0;
   current1El.textContent = 0;
   diceEl.classList.add('hidden');
+  player0El.classList.add('player--active');
+  player1El.classList.remove('player--active');
 };
 init();
+
+const switchPlayer = function () {
+  document.getElementById(`current--${activePlayer}`).textContent = 0;
+  currentScore = 0;
+  activePlayer = activePlayer === 0 ? 1 : 0;
+  player0El.classList.toggle('player--active');
+  player1El.classList.toggle('player--active');
+  console.log(`Switched to Player ${activePlayer + 1}`);
+};
 
 btnRoll.addEventListener('click', function () {
   if (playing) {
@@ -37,10 +49,21 @@ btnRoll.addEventListener('click', function () {
       document.getElementById(`current--${activePlayer}`).textContent = currentScore;
       console.log(`Player ${activePlayer + 1} rolled ${dice}. Current score: ${currentScore}`);
     } else {
-      currentScore = 0;
-      document.getElementById(`current--${activePlayer}`).textContent = 0;
-      console.log(`Player ${activePlayer + 1} rolled 1! Current score reset to 0`);
+      console.log(`Player ${activePlayer + 1} rolled 1! Switching players`);
+      switchPlayer();
     }
+  }
+});
+
+btnHold.addEventListener('click', function () {
+  if (playing && currentScore > 0) {
+    scores[activePlayer] += currentScore;
+    document.getElementById(`score--${activePlayer}`).textContent = scores[activePlayer];
+    console.log(`Player ${activePlayer + 1} held! Total score: ${scores[activePlayer]}`);
+    
+    switchPlayer();
+  } else if (playing && currentScore === 0) {
+    console.log('Cannot hold - current score is 0');
   }
 });
 
@@ -48,3 +71,4 @@ console.log('Scores:', scores);
 console.log('Current Score:', currentScore);
 console.log('Active Player:', activePlayer);
 console.log('Playing:', playing);
+
