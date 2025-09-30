@@ -1,5 +1,5 @@
 'use strict';
-console.log('=== PIG GAME DEVELOPMENT: FOUNDATION & DICE ROLLING ===');
+console.log('=== PIG GAME DEVELOPMENT: COMPLETE GAME ===');
 console.log('Pig Game project ready!');
 
 let scores, currentScore, activePlayer, playing;
@@ -12,6 +12,7 @@ const current1El = document.getElementById('current--1');
 const diceEl = document.querySelector('.dice');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
+const btnNew = document.querySelector('.btn--new');
 
 const init = function () {
   scores = [0, 0];
@@ -24,8 +25,16 @@ const init = function () {
   current0El.textContent = 0;
   current1El.textContent = 0;
   diceEl.classList.add('hidden');
+  
+  player0El.classList.remove('player--winner');
+  player1El.classList.remove('player--winner');
   player0El.classList.add('player--active');
   player1El.classList.remove('player--active');
+  
+  btnRoll.disabled = false;
+  btnHold.disabled = false;
+  
+  console.log('Game initialized - Player 1 starts');
 };
 init();
 
@@ -36,6 +45,22 @@ const switchPlayer = function () {
   player0El.classList.toggle('player--active');
   player1El.classList.toggle('player--active');
   console.log(`Switched to Player ${activePlayer + 1}`);
+};
+
+const checkWinner = function () {
+  if (scores[activePlayer] >= 100) {
+    playing = false;
+    diceEl.classList.add('hidden');
+    document.querySelector(`.player--${activePlayer}`).classList.add('player--winner');
+    document.querySelector(`.player--${activePlayer}`).classList.remove('player--active');
+    
+    btnRoll.disabled = true;
+    btnHold.disabled = true;
+    
+    console.log(`🎉 Player ${activePlayer + 1} wins with ${scores[activePlayer]} points!`);
+    return true;
+  }
+  return false;
 };
 
 btnRoll.addEventListener('click', function () {
@@ -61,14 +86,21 @@ btnHold.addEventListener('click', function () {
     document.getElementById(`score--${activePlayer}`).textContent = scores[activePlayer];
     console.log(`Player ${activePlayer + 1} held! Total score: ${scores[activePlayer]}`);
     
-    switchPlayer();
+    if (!checkWinner()) {
+      switchPlayer();
+    }
   } else if (playing && currentScore === 0) {
     console.log('Cannot hold - current score is 0');
   }
+});
+
+btnNew.addEventListener('click', function () {
+  console.log('Starting new game...');
+  init();
+  console.log('New game ready!');
 });
 
 console.log('Scores:', scores);
 console.log('Current Score:', currentScore);
 console.log('Active Player:', activePlayer);
 console.log('Playing:', playing);
-
