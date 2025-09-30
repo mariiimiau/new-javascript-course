@@ -157,3 +157,4 @@ console.log('✅ Professional finishing touches');
 console.log('Ready for visual polish in Hour 3!');
 
 console.log('Test: Try to win, try to lose, then restart!');
+
