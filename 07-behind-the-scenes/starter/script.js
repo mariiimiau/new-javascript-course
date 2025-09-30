@@ -146,3 +146,61 @@ const myTimer = {
 };
 
 myTimer.startCountdown();
+
+// Your Turn: Test Reference Behavior
+console.log('=== TEST REFERENCE BEHAVIOR ===');
+function changeAge(person, newAge) {
+  person.age = newAge;
+  return person;
+}
+
+// Your Turn: Copying Challenge
+console.log('=== COPYING CHALLENGE ===');
+const userManager = {
+  users: [],
+
+  addUser: function (userData) {
+    // Deep copy to avoid reference issues
+    const userCopy = structuredClone(userData);
+    this.users.push(userCopy);
+  },
+
+  getUsers: function () {
+    // Return shallow copy to prevent external mutation
+    return [...this.users];
+  },
+};
+
+// Test your implementation
+const originalUser = { name: 'John', preferences: { theme: 'dark' } };
+userManager.addUser(originalUser);
+
+originalUser.name = 'Modified';
+console.log('Original changed:', originalUser);
+console.log('Stored user:', userManager.getUsers()[0]); // Should still be 'John'!
+
+// Section 3: Strict Mode Benefits
+console.log('=== STRICT MODE BENEFITS ===');
+'use strict';
+
+// Strict mode prevents accidental global variables
+try {
+  undeclaredVar = 'This would create a global variable!';
+} catch (error) {
+  console.log('Strict mode caught error:', error.message);
+}
+
+// This behavior in strict mode
+function demonstrateThis() {
+  console.log('this in strict mode:', this); // undefined
+}
+demonstrateThis();
+
+// Object mutation prevention
+const readOnlyObj = Object.freeze({ name: 'Frozen' });
+
+try {
+  readOnlyObj.name = 'Changed';
+} catch (error) {
+  console.log('Strict mode caught error:', error.message);
+}
