@@ -98,3 +98,51 @@ console.log(addArrow(2, 3)); // 5
 const apiUrl = 'https://example.com';
 console.log(apiUrl);
 
+// Event handlers and this binding
+const userCard = {
+  name: 'Sarah',
+  
+  setupEvents() {
+    console.log('Event setup for:', this.name);
+    
+    // Simulating an event handler scenario
+    const simulateClick = () => {
+      // This would be the event handler
+      console.log('Clicked user:', this.name); // this = userCard object!
+    };
+    
+    // Simulate a click event
+    console.log('Simulating click event...');
+    simulateClick();
+  },
+};
+
+userCard.setupEvents();
+
+// Array methods with this context
+const calculator = {
+  numbers: [1, 2, 3, 4, 5],
+  multiplier: 2,
+
+  processNumbers() {
+    return this.numbers.map(num => num * this.multiplier);
+  },
+};
+
+console.log('Processed numbers:', calculator.processNumbers()); // [2, 4, 6, 8, 10]
+
+// Your Turn: Mini-Challenge
+const myTimer = {
+  name: 'My Timer',
+
+  startCountdown() {
+    console.log(`${this.name} starting countdown...`);
+
+    // Using arrow function to preserve 'this'
+    setTimeout(() => {
+      console.log(`${this.name} countdown finished!`);
+    }, 1000);
+  },
+};
+
+myTimer.startCountdown();
